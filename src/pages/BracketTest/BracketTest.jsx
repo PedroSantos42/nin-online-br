@@ -130,8 +130,15 @@ const Modal = styled.div`
 const ModalTitle = styled.h3`
   color: #fff;
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   span { color: #FFD700; }
+`;
+
+const ModalMessage = styled.p`
+  color: #c0c0c0;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
 `;
 
 const CardsContainer = styled.div`
@@ -176,6 +183,18 @@ const CancelButton = styled.button`
   cursor: pointer;
   transition: 0.2s;
   &:hover { background: #1a2530; color: #fff; }
+`;
+
+const OkButton = styled.button`
+  background: #00BFFF;
+  color: #0B0E14;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover { filter: brightness(1.2); }
 `;
 
 const ButtonGroup = styled.div`
@@ -244,7 +263,6 @@ function generateBracket(participants) {
 
   const allMatches = buildRound(shuffled);
   
-  // Pós-processamento para adicionar tournamentRoundText
   const totalRounds = Math.log2(total);
   allMatches.forEach(m => {
     const round = m.round;
@@ -279,6 +297,7 @@ const BracketTest = () => {
   const [matches, setMatches] = useState([]);
   const [bracketGenerated, setBracketGenerated] = useState(false);
   const [popupMatch, setPopupMatch] = useState(null);
+  const [infoPopup, setInfoPopup] = useState(null); // Estado para o popup de informação
 
   const handleAddParticipant = () => {
     if (!name.trim()) return alert('Digite um nome!');
@@ -303,15 +322,21 @@ const BracketTest = () => {
   };
 
   const handleAddMock = () => {
-    const mock = MOCK_NAMES.map((n, i) => ({
-      id: `mock-${i}`,
-      name: n,
-      level: Math.floor(Math.random() * 60) + 10,
-      village: VILLAGES[i % 3],
-      primaryMastery: MASTERIES[i % MASTERIES.length],
-      secondaryMastery: i % 2 === 0 ? MASTERIES[(i + 3) % MASTERIES.length] : undefined,
-    }));
-    setParticipants(mock);
+    const newMocks = [];
+    const baseIndex = participants.length; // para garantir IDs únicos
+    for (let i = 0; i < 4; i++) {
+      const idx = baseIndex + i;
+      const name = MOCK_NAMES[idx % MOCK_NAMES.length];
+      newMocks.push({
+        id: `mock-${Date.now()}-${idx}`,
+        name: name,
+        level: Math.floor(Math.random() * 60) + 10,
+        village: VILLAGES[idx % VILLAGES.length],
+        primaryMastery: MASTERIES[idx % MASTERIES.length],
+        secondaryMastery: idx % 2 === 0 ? MASTERIES[(idx + 3) % MASTERIES.length] : undefined,
+      });
+    }
+    setParticipants(prev => [...prev, ...newMocks]);
   };
 
   const handleGenerate = () => {
@@ -332,7 +357,7 @@ const BracketTest = () => {
     const p1 = match.participants[0];
     const p2 = match.participants[1];
     if (!p1 || !p2 || p1.name === 'TBD' || p2.name === 'TBD') {
-      alert('Esta partida ainda não tem participantes definidos.');
+      setInfoPopup('Esta partida ainda não tem participantes definidos. Aguarde os vencedores das partidas anteriores.');
       return;
     }
     setPopupMatch(match);
@@ -386,11 +411,16 @@ const BracketTest = () => {
     setPopupMatch(null);
   };
 
+  const handleCloseInfoPopup = () => {
+    setInfoPopup(null);
+  };
+
   const handleReset = () => {
     setParticipants([]);
     setMatches([]);
     setBracketGenerated(false);
     setPopupMatch(null);
+    setInfoPopup(null);
   };
 
   // ========== COMPONENTE DE MATCH ==========
@@ -443,13 +473,18 @@ const BracketTest = () => {
         height={600}
         {...props}
         style={{
-          background: 'transparent',
+          background: '#0B0E14',
           width: '100%',
           height: '100%',
           minHeight: '600px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+        }}
+        svgStyle={{
+          background: '#0B0E14',
+          width: '100%',
+          height: '100%',
         }}
       >
         {children}
@@ -476,9 +511,6 @@ const BracketTest = () => {
       loserBackground: '#2a1a1a',
       padding: '8px 12px',
       width: '180px',
-    },
-    theme: {
-      background: 'transparent',
     },
   }), []);
 
@@ -517,7 +549,7 @@ const BracketTest = () => {
                 {MASTERIES.map(m => <option key={m} value={m}>{m}</option>)}
               </Select>
               <Button onClick={handleAddParticipant}>Adicionar</Button>
-              <Button variant="gold" onClick={handleAddMock}>+8 Mock</Button>
+              <Button variant="gold" onClick={handleAddMock}>+4 Mock</Button>
             </div>
 
             {participants.length > 0 && (
@@ -556,7 +588,6 @@ const BracketTest = () => {
             <Button variant="gold" onClick={handleReset} style={{ marginBottom: '1.5rem' }}>
               🔄 Voltar e recomeçar
             </Button>
-            {/* Container do bracket com centralização */}
             <div style={{
               width: '100%',
               height: '750px',
@@ -581,6 +612,7 @@ const BracketTest = () => {
         )}
       </Card>
 
+      {/* Popup para escolher vencedor */}
       {popupMatch && (
         <Overlay onClick={handleCancel}>
           <Modal onClick={(e) => e.stopPropagation()}>
@@ -595,6 +627,19 @@ const BracketTest = () => {
             </CardsContainer>
             <ButtonGroup>
               <CancelButton onClick={handleCancel}>Cancelar</CancelButton>
+            </ButtonGroup>
+          </Modal>
+        </Overlay>
+      )}
+
+      {/* Popup de informação (alerta customizado) */}
+      {infoPopup && (
+        <Overlay onClick={handleCloseInfoPopup}>
+          <Modal onClick={(e) => e.stopPropagation()}>
+            <ModalTitle>ℹ️ <span>Informação</span></ModalTitle>
+            <ModalMessage>{infoPopup}</ModalMessage>
+            <ButtonGroup>
+              <OkButton onClick={handleCloseInfoPopup}>OK</OkButton>
             </ButtonGroup>
           </Modal>
         </Overlay>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Tournament from './pages/Tournament/Tournament';
-import BracketTest from './pages/BracketTest';
+import BracketTest from './pages/BracketTest/BracketTest';
 
 function App() {
   return (
