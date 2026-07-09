@@ -52,8 +52,9 @@ const Content = styled.main`
 const Home = () => {
   const menuItems = [
     { label: 'Wiki', path: '/wiki' },
-    { label: 'Polícia', path: '/policia' },
-    { label: 'Médicos', path: '/medicos' },
+    { label: 'Polícia', path: '/organizacoes/policia' },
+    { label: 'Médicos', path: '/organizacoes/medicos' },
+    { label: '🏆 Torneios', path: '/torneios' },
   ];
 
   return (
