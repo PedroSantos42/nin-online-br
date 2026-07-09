@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { SingleEliminationBracket, SVGViewer } from '@g-loot/react-tournament-brackets';
 
@@ -297,9 +297,10 @@ const BracketTest = () => {
   const [matches, setMatches] = useState([]);
   const [bracketGenerated, setBracketGenerated] = useState(false);
   const [popupMatch, setPopupMatch] = useState(null);
-  const [infoPopup, setInfoPopup] = useState(null); // Estado para o popup de informação
+  const [infoPopup, setInfoPopup] = useState(null);
 
-  const handleAddParticipant = () => {
+  // Memoizar funções para evitar recriação desnecessária
+  const handleAddParticipant = useCallback(() => {
     if (!name.trim()) return alert('Digite um nome!');
     if (level < 1 || level > MAX_LEVEL) return alert(`Level deve estar entre 1 e ${MAX_LEVEL}`);
     const newParticipant = {
@@ -310,20 +311,20 @@ const BracketTest = () => {
       primaryMastery,
       secondaryMastery: secondaryMastery || undefined,
     };
-    setParticipants([...participants, newParticipant]);
+    setParticipants(prev => [...prev, newParticipant]);
     setName('');
     setLevel(50);
     setPrimaryMastery(MASTERIES[0]);
     setSecondaryMastery('');
-  };
+  }, [name, level, village, primaryMastery, secondaryMastery]);
 
-  const handleRemoveParticipant = (id) => {
-    setParticipants(participants.filter(p => p.id !== id));
-  };
+  const handleRemoveParticipant = useCallback((id) => {
+    setParticipants(prev => prev.filter(p => p.id !== id));
+  }, []);
 
-  const handleAddMock = () => {
+  const handleAddMock = useCallback(() => {
     const newMocks = [];
-    const baseIndex = participants.length; // para garantir IDs únicos
+    const baseIndex = participants.length;
     for (let i = 0; i < 4; i++) {
       const idx = baseIndex + i;
       const name = MOCK_NAMES[idx % MOCK_NAMES.length];
@@ -337,9 +338,9 @@ const BracketTest = () => {
       });
     }
     setParticipants(prev => [...prev, ...newMocks]);
-  };
+  }, [participants.length]);
 
-  const handleGenerate = () => {
+  const handleGenerate = useCallback(() => {
     const total = participants.length;
     if (total < 2) return alert('Adicione pelo menos 2 participantes.');
     if (!isPowerOfTwo(total)) {
@@ -350,9 +351,9 @@ const BracketTest = () => {
     if (generated.length === 0) return alert('Erro ao gerar bracket.');
     setMatches(generated);
     setBracketGenerated(true);
-  };
+  }, [participants]);
 
-  const handleMatchClick = (match) => {
+  const handleMatchClick = useCallback((match) => {
     if (match.state === 'PLAYED') return;
     const p1 = match.participants[0];
     const p2 = match.participants[1];
@@ -361,9 +362,9 @@ const BracketTest = () => {
       return;
     }
     setPopupMatch(match);
-  };
+  }, []);
 
-  const handleSetWinner = (winnerId) => {
+  const handleSetWinner = useCallback((winnerId) => {
     if (!popupMatch) return;
 
     const matchId = popupMatch.id;
@@ -405,23 +406,19 @@ const BracketTest = () => {
     });
 
     setPopupMatch(null);
-  };
+  }, [popupMatch]);
 
-  const handleCancel = () => {
-    setPopupMatch(null);
-  };
+  const handleCancel = useCallback(() => setPopupMatch(null), []);
+  const handleCloseInfoPopup = useCallback(() => setInfoPopup(null), []);
 
-  const handleCloseInfoPopup = () => {
-    setInfoPopup(null);
-  };
-
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setParticipants([]);
     setMatches([]);
     setBracketGenerated(false);
     setPopupMatch(null);
     setInfoPopup(null);
-  };
+    setSvgViewerValue(null); // Resetar posição do SVG
+  }, []);
 
   // ========== COMPONENTE DE MATCH ==========
   const MatchComponent = React.memo(({ match }) => {
@@ -465,8 +462,8 @@ const BracketTest = () => {
     );
   });
 
-  // ========== WRAPPER DO SVG ==========
-  const SvgWrapper = ({ children, ...props }) => {
+  // ========== WRAPPER DO SVG (controlado) ==========
+  const SvgWrapper = useCallback(({ children, ...props }) => {
     return (
       <SVGViewer
         width={1200}
@@ -490,7 +487,7 @@ const BracketTest = () => {
         {children}
       </SVGViewer>
     );
-  };
+  }, []); // dependências vazias para nunca recriar
 
   // ========== OPCIONAIS DA LIB ==========
   const bracketOptions = useMemo(() => ({
@@ -632,7 +629,7 @@ const BracketTest = () => {
         </Overlay>
       )}
 
-      {/* Popup de informação (alerta customizado) */}
+      {/* Popup de informação */}
       {infoPopup && (
         <Overlay onClick={handleCloseInfoPopup}>
           <Modal onClick={(e) => e.stopPropagation()}>
