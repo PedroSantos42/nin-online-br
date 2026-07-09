@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +14,7 @@ const HeaderContainer = styled.header`
   z-index: 10;
 `;
 
-const Logo = styled.img`
+export const Logo = styled.img`
   height: 80px;
   width: auto;
   margin-bottom: 0.5rem;
@@ -26,7 +25,7 @@ const Logo = styled.img`
   }
 `;
 
-const Nav = styled.nav`
+export const Nav = styled.nav`
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
@@ -34,7 +33,7 @@ const Nav = styled.nav`
   margin-top: 0.25rem;
 `;
 
-const NavLink = styled(Link)`
+export const NavLink = styled(Link)`
   font-size: 1.1rem;
   font-weight: 600;
   color: #c0c0c0;
@@ -48,21 +47,9 @@ const NavLink = styled(Link)`
     color: #00bfff;
     border-bottom-color: #00bfff;
   }
+
+  &.active {
+    color: #ffd700;
+    border-bottom-color: #ffd700;
+  }
 `;
-
-const Header = ({ menuItems }) => {
-  return (
-    <HeaderContainer>
-      <Logo src="/nin-logo.png" alt="Nin Online - Vila da Folha" />
-      <Nav>
-        {menuItems.map((item) => (
-          <NavLink key={item.path} to={item.path}>
-            {item.label}
-          </NavLink>
-        ))}
-      </Nav>
-    </HeaderContainer>
-  );
-};
-
-export default Header;

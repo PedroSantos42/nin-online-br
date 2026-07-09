@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from '../components/Header';
 
 const HomeContainer = styled.div`
   min-height: 100vh;
-  background-image: url('/nin-leaf-background.png');
+  background-image: url('/assets/backgrounds/nin-leaf-background.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -43,25 +42,16 @@ const Content = styled.main`
   p {
     font-size: 1.2rem;
     color: #e0e0e0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     max-width: 600px;
     line-height: 1.6;
   }
 `;
 
 const Home = () => {
-  const menuItems = [
-    { label: 'Wiki', path: '/wiki' },
-    { label: 'Polícia', path: '/organizacoes/policia' },
-    { label: 'Médicos', path: '/organizacoes/medicos' },
-    { label: '🏆 Torneios', path: '/torneios' },
-    { label: '🧪 Teste Bracket', path: '/teste-bracket' },
-  ];
-
   return (
     <HomeContainer>
       <Overlay>
-        <Header menuItems={menuItems} />
         <Content>
           <h1>Bem-vindo, Shinobi!</h1>
           <p>
