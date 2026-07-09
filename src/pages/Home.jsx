@@ -55,6 +55,7 @@ const Home = () => {
     { label: 'Polícia', path: '/organizacoes/policia' },
     { label: 'Médicos', path: '/organizacoes/medicos' },
     { label: '🏆 Torneios', path: '/torneios' },
+    { label: '🧪 Teste Bracket', path: '/teste-bracket' },
   ];
 
   return (
