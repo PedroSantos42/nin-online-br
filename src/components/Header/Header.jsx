@@ -3,10 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { HeaderContainer, Logo, Nav, NavLink } from './Header.styles';
 
 const menuItems = [
-  { label: 'Wiki', path: '/wiki' },
-  { label: 'Policia', path: '/organizacoes/policia' },
-  { label: 'Medicos', path: '/organizacoes/medicos' },
-  { label: 'Torneios', path: '/torneios' },
+  { label: '🏠 Home', path: '/' },
+  { label: '📚 Wiki', path: '/wiki' },
+  { label: '🗺️ Mapa', path: '/mapa' },
+  { label: '👮 Polícia', path: '/organizacoes/policia' },
+  { label: '🩺 Médicos', path: '/organizacoes/medicos' },
+  { label: '🏆 Torneios', path: '/torneios' },
 ];
 
 const Header = () => {
