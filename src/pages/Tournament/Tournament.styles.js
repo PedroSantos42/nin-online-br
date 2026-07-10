@@ -21,7 +21,8 @@ export const Card = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 2rem;
+  font-family: 'Naruto', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 2.8rem;
   color: #fff;
   text-align: center;
   margin-bottom: 1.5rem;

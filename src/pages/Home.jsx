@@ -32,7 +32,8 @@ const Content = styled.main`
   max-width: 900px;
 
   h1 {
-    font-size: 3rem;
+    font-family: 'Naruto', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 3.5rem;
     font-weight: 700;
     color: #fff;
     text-shadow: 0 0 30px rgba(0, 191, 255, 0.5);

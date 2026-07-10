@@ -4,9 +4,9 @@ import { HeaderContainer, Logo, Nav, NavLink } from './Header.styles';
 
 const menuItems = [
   { label: 'Wiki', path: '/wiki' },
-  { label: 'Polícia', path: '/organizacoes/policia' },
-  { label: 'Médicos', path: '/organizacoes/medicos' },
-  { label: '🏆 Torneios', path: '/torneios' },
+  { label: 'Policia', path: '/organizacoes/policia' },
+  { label: 'Medicos', path: '/organizacoes/medicos' },
+  { label: 'Torneios', path: '/torneios' },
 ];
 
 const Header = () => {

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './pages/Home';
 import Tournament from './pages/Tournament/Tournament';
+import Police from './pages/Police/Police'; // <-- Importe
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/torneios" element={<Tournament />} />
-        {/* Adicione outras rotas aqui: Wiki, Policia, Medicos */}
+        <Route path="/organizacoes/policia" element={<Police />} />
       </Routes>
     </>
   );

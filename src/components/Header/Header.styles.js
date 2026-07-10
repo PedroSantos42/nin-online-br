@@ -34,7 +34,8 @@ export const Nav = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  font-size: 1.1rem;
+  font-family: 'Naruto', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #c0c0c0;
   padding: 0.4rem 0.8rem;
