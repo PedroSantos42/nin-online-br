@@ -16,7 +16,7 @@ const UnderConstruction = ({ pageName }) => {
         <Content>
           <Emoji>🚧</Emoji>
           <Title>
-            <span>Em Construção</span>
+            <span>Em Construcao</span>
           </Title>
           <Subtitle>
             A página <strong>{pageName || 'solicitada'}</strong> está sendo desenvolvida.
