@@ -9,6 +9,7 @@ import InteractiveMap from './pages/InteractiveMap';
 import UnderConstruction from './components/UnderConstruction/UnderConstruction';
 import WikiIndex from './pages/WikiIndex';
 import OrganizationsIndex from './pages/OrganizationsIndex';
+import Missions from './pages/Missions/Missions';
 
 // Páginas específicas de Organizações (em construção)
 const Anbu = () => <UnderConstruction pageName="ANBU" />;
@@ -34,6 +35,7 @@ function App() {
 
         {/* Wiki */}
         <Route path="/wiki" element={<WikiIndex />} />
+        <Route path="/wiki/missoes" element={<Missions />} />
         <Route path="/wiki/missoes/diarias" element={<WikiDiarias />} />
         <Route path="/wiki/missoes/arcos" element={<WikiArcos />} />
         <Route path="/wiki/missoes/selos" element={<WikiSelos />} />

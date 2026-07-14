@@ -1,35 +1,34 @@
 import styled from 'styled-components';
 
 export const PageContainer = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   background-image: url('/assets/backgrounds/nin-police-background.png');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* REMOVA O PADDING DAQUI */
   padding: 0;
 `;
 
 export const Overlay = styled.div`
   width: 100%;
-  min-height: 100vh;
-  background: rgba(11, 14, 20, 0.7);
+  height: 100%;
+  background: rgba(11, 14, 20, 0.5); /* Antes era 0.7 */
   backdrop-filter: brightness(0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* REMOVA O PADDING DAQUI */
-  padding: 0;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  box-sizing: border-box;
 `;
 
 export const Content = styled.main`
   max-width: 1200px;
   width: 100%;
-  /* ADICIONE O PADDING AQUI */
-  padding: 2rem 1rem;
+  padding: 1rem 0;
+  /* sem margin-top, pois o padding do Overlay já dá espaço */
 `;
 
 // O restante dos estilos permanece igual:

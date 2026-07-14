@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HomeContainer = styled.div`
-  min-height: 100vh;
-  background-image: url('/assets/backgrounds/nin-leaf-background.png');
+  height: 100vh;
+  background-image: url('/assets/backgrounds/nin-home-background.png');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,21 +13,20 @@ const HomeContainer = styled.div`
 
 const Overlay = styled.div`
   width: 100%;
-  min-height: 100vh;
-  background: rgba(11, 14, 20, 0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Content = styled.main`
-  flex: 1;
+  height: 100%;
+  background: rgba(11, 14, 20, 0.5); /* Antes era 0.6 */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
   padding: 2rem;
+`;
+
+const Content = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   max-width: 900px;
 
   h1 {

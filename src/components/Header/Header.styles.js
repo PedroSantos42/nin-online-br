@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,8 +13,6 @@ export const HeaderContainer = styled.header`
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(0, 191, 255, 0.2);
   width: 100%;
-  position: relative;
-  z-index: 100;
 `;
 
 export const Logo = styled.img`

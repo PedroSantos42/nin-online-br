@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const PageContainer = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   background-image: url('/assets/backgrounds/nin-working-background.png');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,14 +13,15 @@ export const PageContainer = styled.div`
 
 export const Overlay = styled.div`
   width: 100%;
-  min-height: 100vh;
-  background: rgba(11, 14, 20, 0.75);
+  height: 100%;
+  background: rgba(11, 14, 20, 0.5); /* Antes era 0.75 */
   backdrop-filter: brightness(0.85);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  box-sizing: border-box;
 `;
 
 export const Content = styled.main`

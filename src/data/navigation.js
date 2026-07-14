@@ -1,8 +1,5 @@
 export const wikiSubitems = [
-  { label: 'Missoes Diarias', path: '/wiki/missoes/diarias', icon: '📋' },
-  { label: 'Arcos', path: '/wiki/missoes/arcos', icon: '⚡' },
-  { label: 'Selos', path: '/wiki/missoes/selos', icon: '🔮' },
-  { label: 'Mundo Aberto', path: '/wiki/missoes/mundo-aberto', icon: '🌍' },
+  { label: 'Missoes', path: '/wiki/missoes', icon: '📋' },
   { label: 'Criaturas', path: '/wiki/criaturas', icon: '🐉' },
   { label: 'Equipamentos', path: '/wiki/equipamentos', icon: '🛡️' },
   { label: 'Itens', path: '/wiki/itens', icon: '🎒' },
